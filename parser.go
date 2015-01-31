@@ -56,15 +56,16 @@ func (l *ListParser) elements() {
 }
 
 func (l *ListParser) element() {
-	if l.lookahead(1).typ == NAME && l.lookahead(2).typ == EQUAL {
+	switch {
+	case l.lookahead(1).typ == NAME && l.lookahead(2).typ == EQUAL:
 		l.match(NAME)
 		l.match(EQUAL)
 		l.match(NAME)
-	} else if l.lookahead(1).typ == NAME {
+	case l.lookahead(1).typ == NAME:
 		l.match(NAME)
-	} else if l.lookahead(1).typ == LBRACK {
+	case l.lookahead(1).typ == LBRACK:
 		l.list()
-	} else {
+	default:
 		errors.New(fmt.Sprintf("expecting name or list; found %s \n", l.lookahead(1).text))
 	}
 }
