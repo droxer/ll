@@ -14,7 +14,7 @@ type Token struct {
 }
 
 type Lexer interface {
-	NextToken() Token
+	NextToken() *Token
 }
 
 const (
