@@ -8,6 +8,11 @@ import (
 	"unicode"
 )
 
+type Token struct {
+	typ  int
+	text string
+}
+
 type Lexer interface {
 	NextToken() Token
 }
@@ -54,10 +59,9 @@ func (l *ListLexer) NextToken() *Token {
 					names = append(names, c)
 					c, _ = l.reader.ReadByte()
 				}
-
-				token := &Token{NAME, string(names)}
 				l.reader.UnreadByte()
-				return token
+
+				return &Token{NAME, string(names)}
 			}
 
 			errors.New(fmt.Sprintf("ll:invalid character %s", c))
@@ -67,9 +71,4 @@ func (l *ListLexer) NextToken() *Token {
 	}
 
 	return &Token{EOF, "EOF"}
-}
-
-type Token struct {
-	typ  int
-	text string
 }

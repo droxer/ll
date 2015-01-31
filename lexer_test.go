@@ -1,25 +1,21 @@
 package ll
 
 import (
-	"fmt"
 	"testing"
 )
 
-func TestLexer(t *testing.T) {
-
+func TestListLexer(t *testing.T) {
 	lexer := NewListLexer("[a,bb=c,[d,e]]")
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
-	fmt.Println(lexer.NextToken())
+
+	if token := lexer.NextToken(); token.text != "[" {
+		t.Fatalf("expected [ actual is %s", token.text)
+	}
+
+	if token := lexer.NextToken(); token.text != "a" {
+		t.Fatalf("expected a actual is %s", token.text)
+	}
+
+	if token := lexer.NextToken(); token.text != "," {
+		t.Fatalf("expected , actual is %s", token.text)
+	}
 }
